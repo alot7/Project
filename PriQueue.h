@@ -71,16 +71,4 @@ public:
 	{
 		return (Head == NULL);
 	}
-	//Function that prints all the elements of the queue
-	//void print() const
-	//{
-		//Node<T>* ptr = Head;
-		//while (ptr)
-		//{
-			//cout << ptr->getKey() << " ";
-			//ptr = ptr->getNext();
-		//}
-		//cout << endl;
-	//}
-
 };
