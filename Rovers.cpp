@@ -1,6 +1,8 @@
 #include "Rovers.h"
 
-Rovers::Rovers(){}
+Rovers::Rovers()
+{
+}
 Rovers::Rovers(char roverType, int checkupDuration, int speed, int N)
 {
 	RoverType = roverType;

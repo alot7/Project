@@ -1,9 +1,15 @@
 #include "Missions.h"
 using namespace std;
-missions::missions(){}
-missions::missions(char TYP, int ID, int TLOC, int MDUR, int FD, int SIG)
+missions::missions()
 {
-
+}
+missions::missions(char type, int id, int location, int duration, int forday, int sig)
+{
+	TYP = type;
+	ID = id;
+	TLOC = location;
+	MDUR = duration;
+	SIG = sig;
 }
 void missions::setTYP(char type)
 {

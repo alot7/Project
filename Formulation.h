@@ -7,6 +7,10 @@ class Formulation :
     int TargetLocation;
     int MissionDuration;
     int Significance;
+    int  MissionID;
+    int EventDay;
+
+
 
 public:
 

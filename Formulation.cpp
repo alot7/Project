@@ -2,8 +2,10 @@
 Formulation::Formulation(char MT, int TL, int MD, int Signif, int MID, int ED) :Event(ED, MID)
 {
     MissionType = MT;
+    MissionID = MID;
     TargetLocation = TL;
     MissionDuration = MD;
+    EventDay = ED;
     Significance = Signif;
 }
 

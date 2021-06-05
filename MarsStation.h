@@ -9,28 +9,31 @@ using namespace std;
 class MarsStation
 {
 private:
-	PriQueue<missions> EMissions;
-	LinkedQueue<missions> PMissions;
-	PriQueue<missions> WEMission;
+
+	PriQueue<missions> WEMissions;
 	LinkedQueue<missions> WPMissions;
 	LinkedQueue<missions> CMissions;
-	 
+	LinkedQueue<missions> IEmissions;
+
 	LinkedQueue<Rovers> AERovers;
 	LinkedQueue<Rovers> APRovers;
-	PriQueue<missions> IEmissions;
 	LinkedQueue<Rovers> CURover;
 	LinkedQueue<Event*> Events;
+
 	int CurrentDay;
 public:
 	MarsStation();
-	void StartUp();
+	void StartUp(); // to load file
 	void CurrentDayincreasing();
 	bool AvailableEvents();
-	void EventExecution();
-	int getCurrentDay();
-	void CheckIEmissions();
-	void MissionExecution();
-
+	void EventExecution(); 
+	int getCurrentDay(); 
+	void CheckIEmissions(); //check in IE missions only
+	void MissionAssigning(); // assigning missions to rovers
+	void WaitingMissions(); // checking on waiting list to increment days
+	void MissionExecution(); // check on every thing related to missions
+	void FreeRover(Rovers R); //to free the rover after the mission is completed
+	void CheckingSystem(); // to check if there is any thing left other so it increments the day otherwise gets output
 
 
 

@@ -16,7 +16,7 @@ private:
 	Rovers rover;
 public:
 	missions();
-	missions(char TYP, int ID, int TLOC, int MDUR, int FD, int SIG);
+	missions(char type, int id, int location, int duration, int forday, int sig);
 	char getTYP();
 	void setTYP(char type);
 	void setED(int eventday);
