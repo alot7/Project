@@ -1,10 +1,13 @@
+#pragma once
 #include "Event.h"
 #include "Formulation.h"
 #include "Missions.h"
 #include "Rovers.h"
 #include <fstream>
-using std::ifstream;
+#include <iostream>
+#include <string.h>
 using namespace std;
+
 
 class MarsStation
 {
@@ -17,7 +20,8 @@ private:
 
 	LinkedQueue<Rovers> AERovers;
 	LinkedQueue<Rovers> APRovers;
-	LinkedQueue<Rovers> CURover;
+	LinkedQueue<Rovers> CUERover;
+	LinkedQueue<Rovers> CUPRover;
 	LinkedQueue<Event*> Events;
 
 	int CurrentDay;
@@ -33,7 +37,9 @@ public:
 	void WaitingMissions(); // checking on waiting list to increment days
 	void MissionExecution(); // check on every thing related to missions
 	void FreeRover(Rovers R); //to free the rover after the mission is completed
-	void CheckingSystem(); // to check if there is any thing left other so it increments the day otherwise gets output
+	void CheckUpERover(); // to check the checkup Erovers 
+	void CheckUpPRover(); // to check the checkup Provers 
+	void CheckingSystem(); // to check on every each day and when everything finishes it prints output
 
 
 

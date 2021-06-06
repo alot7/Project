@@ -1,5 +1,6 @@
 #pragma once
 #include "Rovers.h"
+#include <iostream>
 using namespace std;
 class missions
 {
@@ -32,9 +33,9 @@ public:
 	int getWD();
 	void increasingWD();
 	int getCD();
-	int getExD();
+	int getExD(); //Execution day
 	void CDED();
-	void setrover(Rovers rov);
+	void setrover(Rovers r);
 	Rovers getrover();
 	~missions();
 };

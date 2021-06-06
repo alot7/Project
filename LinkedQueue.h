@@ -1,6 +1,6 @@
+#pragma once
 #include "Node.h"
 #include "QueueADT.h"
-#include <vector>
 using namespace std;
 
 
@@ -18,26 +18,20 @@ public:
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
 	~LinkedQueue();
-
-	//copy constructor
-	LinkedQueue(const LinkedQueue<T>& LQ);
-
-	template <typename T>
+};
+    template < typename T>
 	LinkedQueue<T>::LinkedQueue()
 	{
 		backPtr = nullptr;
 		frontPtr = nullptr;
 
 	}
-
-	template <typename T>
+	template < typename T>
 	bool LinkedQueue<T>::isEmpty() const
 	{
 		return (frontPtr == nullptr);
 	}
-
-
-	template <typename T>
+	template < typename T>
 	bool LinkedQueue<T>::enqueue(const T& newEntry)
 	{
 		Node<T>* newNodePtr = new Node<T>(newEntry);
@@ -50,8 +44,7 @@ public:
 		backPtr = newNodePtr; // New node is the last node now
 		return true;
 	} // end enqueue
-
-	template <typename T>
+	template < typename T>
 	bool LinkedQueue<T>::dequeue(T& frntEntry)
 	{
 		if (isEmpty())
@@ -70,8 +63,7 @@ public:
 		return true;
 
 	}
-
-	template <typename T>
+	template < typename T>
 	bool LinkedQueue<T>::peek(T& frntEntry) const
 	{
 		if (isEmpty())
@@ -81,8 +73,7 @@ public:
 		return true;
 
 	}
-
-	template <typename T>
+	template < typename T>
 	LinkedQueue<T>::~LinkedQueue()
 	{
 		T temp;
@@ -90,39 +81,5 @@ public:
 		//Free (Dequeue) all nodes in the queue
 		while (dequeue(temp));
 	}
-	/////////////////////////////////////////////////////////////////////////////////////////
-	/*
-	Function: Copy constructor
-	To avoid shallow copy,
-	copy constructor is provided
-
-	Input: LinkedQueue<T>: The Queue to be copied
-	Output: none
-	*/
-
-	template <typename T>
-	LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)
-	{
-		Node<T>* NodePtr = LQ.frontPtr;
-		if (!NodePtr) //LQ is empty
-		{
-			frontPtr = backPtr = nullptr;
-			return;
-		}
-
-		//insert the first node
-		Node<T>* ptr = new Node<T>(NodePtr->getItem());
-		frontPtr = backPtr = ptr;
-		NodePtr = NodePtr->getNext();
-
-		//insert remaining nodes
-		while (NodePtr)
-		{
-			Node<T>* ptr = new Node<T>(NodePtr->getItem());
-			backPtr->setNext(ptr);
-			backPtr = ptr;
-			NodePtr = NodePtr->getNext();
-		}
-	}
-};
+	
 

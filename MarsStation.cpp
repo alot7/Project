@@ -1,6 +1,9 @@
+#pragma once
 #include "MarsStation.h"
 
+
 using namespace std;
+
 MarsStation::MarsStation()
 {
 	CurrentDay = 1;
@@ -8,7 +11,13 @@ MarsStation::MarsStation()
 void MarsStation::StartUp()
 {
 	ifstream filename;
-	string filename;
+	string file;
+	cin >> file;
+	filename.open(file);
+	if (!filename)
+	{
+		exit;
+	}
 	int RoverP;
 	int RoverE;
 	int RoverPSpeed;
@@ -49,6 +58,7 @@ void MarsStation::StartUp()
 		}
 		else
 		{
+			// we have only formulation
 			return;
 		}
 	}
@@ -88,13 +98,27 @@ void MarsStation::FreeRover(Rovers R)
 	if (R.getRoverType() == 'P')
 	{
 		R.increamentMissionCount();
-		// here check the Check Up duratrion and add a function in mars station track the Check up list to 
-		APRovers.enqueue(R);
+		if (R.getMissionCount(CurrentDay) == -1 )
+		{
+			CUPRover.enqueue(R);
+		}
+		             // here check the Check Up duratrion  
+		else
+		{
+			APRovers.enqueue(R);
+		}
 	}
 	else if (R.getRoverType() == 'E')
 	{
 		R.increamentMissionCount();
+		if(R.getMissionCount(CurrentDay) == -1)
+		 {
+			CUERover.enqueue(R);
+		 }               // here check the Check Up duratrion 
+	    else
+	    {
 		AERovers.enqueue(R);
+	    }
 	}
 }
 void MarsStation::CheckIEmissions() // TO CHECK IF MISSION IS COMPLETED OR NOT
@@ -132,6 +156,10 @@ void MarsStation::MissionAssigning()
 	//first  Emrgency missions
 	missions itemEM;
 	Rovers itemER;
+	if (WEMissions.isEmpty() && WPMissions.isEmpty())
+	{
+		return;
+	}
 	while (!(WEMissions.isEmpty())) //there is an Em 
 	{
 		WEMissions.peek(itemEM);
@@ -193,7 +221,8 @@ void MarsStation::WaitingMissions()
 	while (!(Em.isEmpty()))
 	{
 		Em.dequeue(itemEM);
-		WEMissions.enqueue(itemEM);
+		int p = (itemEM.getTLOC() * itemEM.getMDUR() * itemEM.getSIG()) / (itemEM.getTLOC() + itemEM.getMDUR() + itemEM.getSIG());
+		WEMissions.enqueue(itemEM,p);
 	}
 	// P missions
 	missions itemPM;
@@ -216,4 +245,62 @@ void MarsStation::MissionExecution()
 	CheckIEmissions();
 	MissionAssigning();
 	WaitingMissions();
+}
+void MarsStation::CheckUpERover()
+{
+	Rovers rov;
+	LinkedQueue<Rovers> r;
+	while (!CUERover.isEmpty())
+	{
+		CUERover.dequeue(rov);
+		if (rov.Movetoavailable(CurrentDay))
+		{
+			AERovers.enqueue(rov);
+		}
+		else
+		{
+			r.enqueue(rov);
+		}
+	}
+	while (!r.isEmpty())
+	{
+		r.dequeue(rov);
+		CUERover.enqueue(rov);
+	}
+}
+void MarsStation::CheckUpPRover()
+{
+	Rovers rov;
+	LinkedQueue<Rovers> r;
+	while (!CUPRover.isEmpty())
+	{
+		CUPRover.dequeue(rov);
+		if (rov.Movetoavailable(CurrentDay))
+		{
+			APRovers.enqueue(rov);
+		}
+		else
+		{
+			r.enqueue(rov);
+		}
+	}
+	while (!r.isEmpty())
+	{
+		r.dequeue(rov);
+		CUPRover.enqueue(rov);
+	}
+}
+void MarsStation::CheckingSystem()
+{
+
+	while (!(WEMissions.isEmpty()&& WPMissions.isEmpty() && IEmissions.isEmpty()))
+	{
+
+		EventExecution(); // Execute the events that should be executed at that day
+		MissionExecution(); //first it checks IE missions then assign missions to rovers then it checks waiting mission
+		CheckUpERover(); //checking on emergency rover
+		CheckUpPRover();// checking on polar rover
+		CurrentDayincreasing(); // in order to get to next day
+
+	}
 }

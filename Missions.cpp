@@ -1,3 +1,4 @@
+#pragma once
 #include "Missions.h"
 using namespace std;
 missions::missions()

@@ -1,5 +1,5 @@
+#pragma once
 #include "Rovers.h"
-
 Rovers::Rovers()
 {
 }
@@ -42,6 +42,14 @@ int Rovers::getSpeed()
 {
 	return Speed;
 }
+void Rovers::setN(int n)
+{
+	Checknumb = n;
+}
+int Rovers::getN()
+{
+	return Checknumb;
+}
 void Rovers::increamentMissionCount()
 {
 	MissionCount++;
@@ -77,4 +85,16 @@ void Rovers::resetMaintain()
 bool Rovers::Movetoavailable(int day)
 {
 	return (day - Entercheck == CheckupDuration);
+}
+Rovers Rovers::operator=(Rovers const& rov)
+{
+	Rovers r;
+	r.RoverType = rov.RoverType;
+	r.CheckupDuration = rov.CheckupDuration;
+    r.Speed = rov.Speed;
+    r.MissionCount = rov.MissionCount;
+	r.Inmaintainance = rov.Inmaintainance;
+	r.Entercheck = rov.Entercheck;
+	r.Checknumb = rov.Checknumb;
+	return r;
 }

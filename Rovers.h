@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include  "Missions.h"
 
 class Rovers
 {
@@ -27,11 +26,13 @@ public:
 
 	void setSpeed(int);
 	int getSpeed();
-
+	void setN(int n);
+	int getN();
 	void increamentMissionCount();
-	int getMissionCount(int day);
+	int getMissionCount(int d);
 	void setMaintain();
 	void resetMaintain();
 
 	bool Movetoavailable(int day);
+	Rovers operator=(Rovers const& rov);
 };

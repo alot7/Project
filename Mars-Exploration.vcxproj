@@ -145,6 +145,7 @@
     <ClInclude Include="MarsStation.h" />
     <ClInclude Include="Missions.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="PQueueADT.h" />
     <ClInclude Include="PriQueue.h" />
     <ClInclude Include="QueueADT.h" />
     <ClInclude Include="Rovers.h" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="Formulation.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="MarsStation.cpp" />
     <ClCompile Include="Missions.cpp" />
     <ClCompile Include="Rovers.cpp" />

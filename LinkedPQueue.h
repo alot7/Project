@@ -1,55 +1,54 @@
-#pragma once
 #include "Node.h"
+#include "PQueueADT.h"
 using namespace std;
 
 
 template <typename T>
-class PriQueue
+class LinkedPQueue : public PQueueADT<T>
 {
 private:
 
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
 public:
-	PriQueue();
+	LinkedPQueue();
 	bool isEmpty() const;
 	bool enqueue(const T& newEntry, const int& newKey);
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
-	~PriQueue();
-};
-    template < typename T>
-	PriQueue<T>::PriQueue()
+	~LinkedPQueue();
+
+	LinkedPQueue<T>::LinkedPQueue()
 	{
 		backPtr = nullptr;
 		frontPtr = nullptr;
+
 	}
-	template < typename T>
-	bool PriQueue<T>::isEmpty() const
+
+	bool LinkedPQueue<T>::isEmpty() const
 	{
 		return (frontPtr == nullptr);
 	}
-	template < typename T>
-	bool PriQueue<T>::enqueue(const T& newEntry, const int& newKey)
+	bool LinkedPQueue<T>::enqueue(const T& newEntry, const int& newKey)
 	{
-		Node<T>* newNodePtr = new Node<T>(newEntry, newKey); // Insert the new node
+		Node<T>* newNodePtr = new Node<T>(newEntry,newKey); // Insert the new node
 		if (isEmpty())//special case if this is the first node to insert
 		{
 			frontPtr = newNodePtr; // The queue is empty
-			backPtr = newNodePtr;
-				return true;
+			backPtr = newNodePtr
+			return true;
 		}
-		if (newNodePtr->getKey() <= frontPtr->getKey())
-		{
+		 if (newNodePtr->getKey() <= frontPtr->getKey())
+		 {
 			backPtr = frontPtr;
 			frontPtr = newNodePtr;
 			frontPtr->setNext(backPtr);
 			return true;
-		}
-		if (newNodePtr->getKey() > frontPtr->getKey() && newNodePtr->getKey() < backPtr->getKey())
+		 }
+	    if (newNodePtr->getKey() > frontPtr->getKey()&& newNodePtr->getKey() < backPtr->getKey())
 		{
 			Node<T>* temp = frontPtr->getNext();
-			Node<T>* ptr = frontPtr;
+			Node<T>* ptr = frontPtr; 
 			while (temp)
 			{
 				if (newNodePtr->getKey() <= temp->getKey())
@@ -65,18 +64,16 @@ public:
 					temp = temp->getNext();
 				}
 			}
-
+			
 		}
 		if (newNodePtr->getKey() >= backPtr->getKey())
 		{
 			backPtr->setNext(newNodePtr);
 			newNodePtr->setNext(nullptr);
 			backPtr = newNodePtr;
-			return true;
 		}
 	} // end enqueue
-	template < typename T>
-	bool PriQueue<T>::dequeue(T& frntEntry)
+	bool LinkedPQueue<T>::dequeue(T& frntEntry)
 	{
 		if (isEmpty())
 			return false;
@@ -94,8 +91,7 @@ public:
 		return true;
 
 	}
-	template < typename T>
-	bool PriQueue<T>::peek(T& frntEntry) const
+	bool LinkedPQueue<T>::peek(T& frntEntry) const
 	{
 		if (isEmpty())
 			return false;
@@ -104,12 +100,15 @@ public:
 		return true;
 
 	}
-	template < typename T>
-	PriQueue<T>::~PriQueue()
+
+	LinkedPQueue<T>::~LinkedQueue()
 	{
 		T temp;
 
 		//Free (Dequeue) all nodes in the queue
 		while (dequeue(temp));
 	}
+	
+};
+
 
